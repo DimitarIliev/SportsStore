@@ -34,7 +34,7 @@ namespace SportsStore.Controllers
 
             if(product != null)
             {
-                Cart cart = new Cart();
+                Cart cart = GetCart();
                 cart.AddItem(product, 1);
                 SaveCart(cart);
             }
