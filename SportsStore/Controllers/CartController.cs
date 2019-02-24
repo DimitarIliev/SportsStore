@@ -13,10 +13,12 @@ namespace SportsStore.Controllers
     public class CartController : Controller
     {
         private IProductRepository _repository;
+        private Cart _cart;
 
-        public CartController(IProductRepository repository)
+        public CartController(IProductRepository repository, Cart cartService)
         {
             _repository = repository;
+            _cart = cartService;
         }
 
         public ViewResult Index(string returnUrl)
@@ -34,9 +36,7 @@ namespace SportsStore.Controllers
 
             if(product != null)
             {
-                Cart cart = GetCart();
-                cart.AddItem(product, 1);
-                SaveCart(cart);
+                _cart.AddItem(product, 1);
             }
 
             return RedirectToAction("Index", new { returnUrl });
@@ -48,9 +48,7 @@ namespace SportsStore.Controllers
 
             if(product != null)
             {
-                Cart cart = GetCart();
-                cart.RemoveLine(product);
-                SaveCart(cart);
+                _cart.RemoveLine(product);
             }
 
             return RedirectToAction("Index", new { returnUrl });
