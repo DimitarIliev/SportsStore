@@ -16,7 +16,7 @@ namespace SportsStore.Models
 
         public static Cart GetCart(IServiceProvider serviceProvider)
         {
-            ISession session = serviceProvider.GetRequiredService<HttpContextAccessor>()?.HttpContext.Session;
+            ISession session = serviceProvider.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
             SessionCart cart = session?.GetJson<SessionCart>("Cart") ?? new SessionCart();
             cart.Session = session;
             return cart;
